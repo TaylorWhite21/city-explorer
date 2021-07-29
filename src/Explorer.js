@@ -1,6 +1,8 @@
 import React from 'react';
 import Form from 'react-bootstrap/Form' 
 import Button from 'react-bootstrap/Button'
+import Image from 'react-bootstrap/Image'
+import './Explorer.css';
 import axios from 'axios';
 
 class Explorer extends React.Component {
@@ -27,35 +29,43 @@ class Explorer extends React.Component {
   getCityResults = async (e) => {
     e.preventDefault();
     // Make sure to place this in your .env file => REACT_APP_LOCATIONIQ_KEY=<YOUR KEY>
-    let cityResults = await axios.get(`https://us1.locationiq.com/v1/search.php?key=${process.env.REACT_APP_LOCATIONIQ_KEY}&q=${this.state.city}&format=json`)
-    console.log(cityResults.data[0]);
+    let cityResults = await axios.get(`https://us1.locationiq.com/v1/search.php?key=${process.env.REACT_APP_LOCATIONIQ_KEY}&q=${this.state.city}&format=json`);
+
+    let mapResult = await axios.get(`https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATIONIQ_KEY}&center=${cityResults.data[0].lat},${cityResults.data[0].lon}&zoom=12`);
+
     this.setState ({
       displayResults: true,
       city: cityResults.data[0].display_name,
       lat: cityResults.data[0].lat,
       lon: cityResults.data[0].lon,
-      mapImage: cityResults.data[0].icon,
+      mapImage: mapResult.config.url,
     })
-    console.log('i am here:', this.state);
   }
 
   render () {
  
-
+    console.log(this.state.city)
     return (
-      <>
+      <div id ="bg">
       <h1>Welcome to City Explorer!</h1>
-      <Form.Group onChange={this.handleOnChange}>
+      <h2>Please enter the city you like to explore.</h2>
+      <Form.Group id="form" onChange={this.handleOnChange}>
       <Form.Control size="lg" type="text" placeholder="Enter City Name Here" />
-      <Button onClick={this.getCityResults} variant="primary" size="lg" active> 
+      <Button id="submit" onClick={this.getCityResults} variant="primary"> 
       EXPLORE!
       </Button>
       </Form.Group>
 
-      {this.state.displayResults ? <h4>Lat: {this.state.lat}, Long: {this.state.lon}</h4> : ''}
-
-      
-      </>
+      {this.state.displayResults ?
+      <div id= "results"> 
+      <h4 id="cityName">City Name:<br></br>{this.state.city}</h4>
+      <h4 id="lat">Lat: {this.state.lat}</h4>
+      <h4 id="long">Long: {this.state.lon}</h4>
+      <Image id="map" src= {this.state.mapImage}/>
+       </div>
+       : ''}
+       
+      </div>
     )
   }
 }

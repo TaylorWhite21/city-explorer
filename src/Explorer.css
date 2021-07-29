@@ -1,0 +1,22 @@
+*{
+  text-align: center;
+  color: crimson;
+}
+
+#results {
+  width: max-content;
+  margin: auto;
+}
+
+#submit {
+  margin-left: 20px;
+}
+
+#map {
+  border: solid;
+}
+
+#bg {
+  background-image:url(./images/city.jpg);
+  z-index: -1;
+}
