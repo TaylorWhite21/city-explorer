@@ -15,6 +15,8 @@ class Explorer extends React.Component {
       lon: 0,
       mapImage: '',
       displayResults: false,
+      renderError: false,
+      errorMessage:'',
     }
   }
 
@@ -29,7 +31,7 @@ class Explorer extends React.Component {
   getCityResults = async (e) => {
     e.preventDefault();
     // Make sure to place this in your .env file => REACT_APP_LOCATIONIQ_KEY=<YOUR KEY>
-    let cityResults = await axios.get(`https://us1.locationiq.com/v1/search.php?key=${process.env.REACT_APP_LOCATIONIQ_KEY}&q=${this.state.city}&format=json`);
+   try{ let cityResults = await axios.get(`https://us1.locationiq.com/v1/search.php?key=${process.env.REACT_APP_LOCATIONIQ_KEY}&q=${this.state.city}&format=json`);
 
     let mapResult = await axios.get(`https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATIONIQ_KEY}&center=${cityResults.data[0].lat},${cityResults.data[0].lon}&zoom=12`);
 
@@ -39,7 +41,14 @@ class Explorer extends React.Component {
       lat: cityResults.data[0].lat,
       lon: cityResults.data[0].lon,
       mapImage: mapResult.config.url,
-    })
+      });
+    } catch (error){
+      this.setState({
+        displayResults: false,
+        renderError: true,
+        errorMessage:`Error Occured: ${error.response.status}, ${error.response.data.error}`,
+      })
+    }
   }
 
   render () {
@@ -64,6 +73,8 @@ class Explorer extends React.Component {
       <Image id="map" src= {this.state.mapImage}/>
        </div>
        : ''}
+
+       {this.state.renderError ? <h3>{this.state.errorMessage}</h3> : ''}
        
       </div>
     )
