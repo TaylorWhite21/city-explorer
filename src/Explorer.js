@@ -53,7 +53,6 @@ class Explorer extends React.Component {
 
   render () {
  
-    console.log(this.state.city)
     return (
       <div id ="bg">
       <h1>Welcome to City Explorer!</h1>
