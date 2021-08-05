@@ -19,5 +19,7 @@
 
 #bg {
   background-image:url(./images/city.jpg);
+  background-repeat: no-repeat;
+  background-size: auto;
   z-index: -1;
 }

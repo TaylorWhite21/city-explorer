@@ -6,8 +6,8 @@ import Image from 'react-bootstrap/Image'
 import './Explorer.css';
 import axios from 'axios';
 import Weather from './Weather.js';
-import FormLabel from 'react-bootstrap/FormLabel';
-import ListGroup from 'react-bootstrap/ListGroup'
+import Movies from './Movies.js';
+
 
 class Explorer extends React.Component {
   //Constructor for initial values
@@ -24,6 +24,14 @@ class Explorer extends React.Component {
       src:'',
       displayResults: false,
       renderError: false,
+      movieData: [],
+      overview: '',
+      title: '',
+      average_votes: 0,
+      vote_count: 0,
+      poster_path: '',
+      popularity: '',
+      release_date: '',
 
     }
   }
@@ -45,6 +53,7 @@ class Explorer extends React.Component {
       let mapResult = await axios.get(`https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATIONIQ_KEY}&center=${cityResults.data[0].lat},${cityResults.data[0].lon}&zoom=12`);
 
       this.getWeatherResults();
+      this.getMovieResults();
 
       this.setState({
         displayResults: true,
@@ -52,7 +61,6 @@ class Explorer extends React.Component {
         lat: cityResults.data[0].lat,
         lon: cityResults.data[0].lon,
         mapImage: mapResult.config.url,
-
       });
     } catch (error) {
       this.setState({
@@ -65,8 +73,7 @@ class Explorer extends React.Component {
 
   getWeatherResults = async (e) => {
     try {
-      let weatherResults = await axios.get(`http://localhost:3001/weather?city=${this.state.city}`);
-      console.log(weatherResults.data)
+      let weatherResults = await axios.get(`http://localhost:3001/weather?city=${this.state.city}&lat=${this.state.lat}&lon=${this.state.lon}`);
       this.setState({
         weatherData: weatherResults.data,
         displayWeather: true,
@@ -81,16 +88,31 @@ class Explorer extends React.Component {
       };
     }
 
-    
+    getMovieResults = async (e) => {
+      try{
+        let movieResults = await axios.get(`http://localhost:3001/movies?city=${this.state.city}`);
+        this.setState({
+          movieData: movieResults.data,
+          displayMovies: true,
+          displayMovieError: false,
+        })
+        console.log(movieResults.data)
+      } catch (error) {
+        this.setState({
+        renderError: true,
+        errorMessage: `Error occcured: ${error.response.data.error}, Status: ${error.response.status}`,
+        })
+      };
+
+    }
+
 
   render() {
-    console.log(this.state)
     return (
       <div id="bg">
       <h1>Welcome to City Explorer!</h1>
       <h2>Please enter the city you like to explore.</h2>
       <Form.Group id="form" onChange={this.handleOnChange}>
-        <FormLabel>Please Enter one of the following cities: Seattle, Paris, or Amman.</FormLabel>
         <Form.Control size="lg" type="text" placeholder="Enter City Name Here" />
         <Button id="submit" onClick={this.getCityResults} variant="primary">
           EXPLORE!
@@ -103,9 +125,13 @@ class Explorer extends React.Component {
           <h4 id="lat">Lat: {this.state.lat}</h4>
           <h4 id="long">Long: {this.state.lon}</h4>
 
-          {this.state.displayWeather ? <Weather
-        showWeather={this.state.weatherData}/> 
+          {this.state.displayWeather ? 
+           <Weather showWeather={this.state.weatherData}/> 
           : '' }
+
+          {this.state.displayMovies ? 
+            <Movies showMovies={this.state.movieData}/>
+          : ''}
 
         <Image id="map" src={this.state.mapImage} />
         </div>
