@@ -1,16 +1,20 @@
 import React from 'react';
 
 class Weather extends React.Component {
-  render(){
-    constructor(props){
-      super(props);
-      this.state={
-        
-      }
+  
+  constructor(props){
+    super(props);
+    this.state={
+      
     }
+  }
 
+  render(){
+    console.log('Weather.js:', this.props.showWeather[0])
     return(
-      this.props.weatherData.map((city, idx) => <h2 key={idx}>{city.date}</h2>)
+    <>
+      {this.props.showWeather.map((city, idx) => <h2 key={idx}>{city.date}</h2>)}
+    </>
     )
   }
 }

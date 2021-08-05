@@ -5,9 +5,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Image from 'react-bootstrap/Image'
 import './Explorer.css';
 import axios from 'axios';
-import Weather from './Weather';
-import ListGroup from 'react-bootstrap/ListGroup';
-import { FormLabel } from 'react-bootstrap';
+import Weather from './Weather.js';
+import FormLabel from 'react-bootstrap/FormLabel';
+import ListGroup from 'react-bootstrap/ListGroup'
 
 class Explorer extends React.Component {
   //Constructor for initial values
@@ -66,11 +66,13 @@ class Explorer extends React.Component {
   getWeatherResults = async (e) => {
     try {
       let weatherResults = await axios.get(`http://localhost:3001/weather?city=${this.state.city}`);
+      console.log(weatherResults.data)
       this.setState({
         weatherData: weatherResults.data,
         displayWeather: true,
         displayWeatherError: false,
       })
+
     } catch (error) {
         this.setState({
         renderError: true,
@@ -79,8 +81,10 @@ class Explorer extends React.Component {
       };
     }
 
-  render() {
     
+
+  render() {
+    console.log(this.state)
     return (
       <div id="bg">
       <h1>Welcome to City Explorer!</h1>
@@ -93,15 +97,16 @@ class Explorer extends React.Component {
         </Button>
       </Form.Group>
 
-      <Weather 
-        showWeather={this.state.weatherData}
-      />
-
       {this.state.displayResults ?
         <div id="results">
           <h4 id="cityName">City Name:<br></br>{this.state.city}</h4>
           <h4 id="lat">Lat: {this.state.lat}</h4>
           <h4 id="long">Long: {this.state.lon}</h4>
+
+          {this.state.displayWeather ? <Weather
+        showWeather={this.state.weatherData}/> 
+          : '' }
+
         <Image id="map" src={this.state.mapImage} />
         </div>
         : ''}
