@@ -1,20 +1,36 @@
 import React from 'react';
+import Card from 'react-bootstrap/Card'
+import './Weather.css'
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 class Weather extends React.Component {
-  
-  constructor(props){
+
+  constructor(props) {
     super(props);
-    this.state={
-      
+    this.state = {
+
     }
   }
 
-  render(){
-    console.log('Weather.js:', this.props.showWeather[0])
-    return(
-    <>
-      {this.props.showWeather.map((city, idx) => <h2 key={idx}>{city.date}</h2>)}
-    </>
+  render() {
+
+    return (
+      <>
+        {this.props.showWeather.map((city, idx) =>  
+        
+          <Card
+            key={idx}
+            className="mb-2"
+          >
+            <Card.Body>
+              <Card.Text>
+               {city.date}
+              </Card.Text>
+            </Card.Body>
+          </Card>
+          )
+        }
+      </>
     )
   }
 }
