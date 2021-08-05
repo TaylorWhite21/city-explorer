@@ -73,7 +73,7 @@ class Explorer extends React.Component {
 
   getWeatherResults = async (e) => {
     try {
-      let weatherResults = await axios.get(`http://localhost:3001/weather?city=${this.state.city}&lat=${this.state.lat}&lon=${this.state.lon}`);
+      let weatherResults = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/weather?city=${this.state.city}&lat=${this.state.lat}&lon=${this.state.lon}`);
       this.setState({
         weatherData: weatherResults.data,
         displayWeather: true,
@@ -90,7 +90,7 @@ class Explorer extends React.Component {
 
     getMovieResults = async (e) => {
       try{
-        let movieResults = await axios.get(`http://localhost:3001/movies?city=${this.state.city}`);
+        let movieResults = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/movies?city=${this.state.city}`);
         this.setState({
           movieData: movieResults.data,
           displayMovies: true,
