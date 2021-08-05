@@ -21,11 +21,6 @@ React-boostrap
 LocationIQ-API  
 CSS  
 
-## Change Log
-<!-- Use this area to document the iterative changes made to your application as each feature is successfully implemented. Use time stamps. Here's an example:
-
-01-01-2001 4:59pm - Application now has a fully-functional express server, with a GET route for the location resource. -->
-
 ## Credit and Collaborations
 [LocationIQ](https://locationiq.com/docs)
 [UML](https://drive.google.com/file/d/1dKorR6TiiY-5oosEViZm8Wr3AfR-sUMU/view?usp=sharing)
