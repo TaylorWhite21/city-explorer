@@ -18,10 +18,7 @@ class Weather extends React.Component {
       <>
         {this.props.showWeather.map((city, idx) =>  
         
-          <Card
-            key={idx}
-            className="mb-2"
-          >
+          <Card key={idx} className="mb-2">
             <Card.Body>
               <Card.Text>
                {city.date}

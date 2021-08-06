@@ -1,6 +1,6 @@
 import React from 'react';
-import ListGroup from 'react-bootstrap/ListGroup'
-import './Weather.css'
+import Carousel from 'react-bootstrap/Carousel'
+import './Movies.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 class Movies extends React.Component {
@@ -17,25 +17,38 @@ class Movies extends React.Component {
 
     return (
       <>
+       <Carousel id='slides' >
         {this.props.showMovies.map((movie, idx) =>
 
-            <listGroup key={idx}>
-                <ListGroup.Item>{movie.title}</ListGroup.Item>
-                <ListGroup.Item>{movie.overview}</ListGroup.Item>
-                <ListGroup.Item>{movie.average_votes}</ListGroup.Item>
-                <ListGroup.Item>{movie.vote_count}</ListGroup.Item>
-                <ListGroup.Item>{movie.poster_path}</ListGroup.Item>
-                <ListGroup.Item>{movie.popularity}</ListGroup.Item>
-                <ListGroup.Item>{movie.release_date}</ListGroup.Item>
-            </listGroup>
+
+         
+            <Carousel.Item key={idx}>
+              <img
+                className="d-block w-100"
+                src= {movie.image_url ?
+                      `https://image.tmdb.org/t/p/w500${movie.image_url}`
+                      : 'https://via.placeholder.com/150' }
+                alt='Movie Poster'
+                
+              />
+              <Carousel.Caption>
+              Title: {movie.title}<br></br>
+              Overview: {movie.overview}<br></br>
+              Average Votes: {movie.average_votes}<br></br>
+              Vote Count: {movie.total_votes}<br></br>
+              Popularity: {movie.popularity}<br></br>
+              Release Date: {movie.released_on}<br></br>
+              </Carousel.Caption>
+            </Carousel.Item>
         )
 
         }
-        
+           </Carousel>
+
       </>
-              
+
     )
-    
+
   }
 }
 

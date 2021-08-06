@@ -1,6 +1,4 @@
-#bg {
-  height:1000px;
-}
+
 
 .App {
   text-align: center;
@@ -40,3 +38,5 @@
     transform: rotate(360deg);
   }
 }
+
+

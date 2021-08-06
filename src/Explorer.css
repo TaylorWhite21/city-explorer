@@ -1,7 +1,7 @@
 *{
   text-align: center;
   color: crimson;
-}
+ }
 
 #results {
   width: max-content;
@@ -15,11 +15,4 @@
 
 #map {
   border: solid;
-}
-
-#bg {
-  background-image:url(./images/city.jpg);
-  background-repeat: no-repeat;
-  background-size: auto;
-  z-index: -1;
 }
