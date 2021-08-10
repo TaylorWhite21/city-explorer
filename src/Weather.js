@@ -15,7 +15,7 @@ class Weather extends React.Component {
   render() {
 
     return (
-      <WeatherDay/>
+      <WeatherDay />
     )
   }
 }
