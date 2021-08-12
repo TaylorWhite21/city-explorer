@@ -1,1 +1,10 @@
+#movieInfo {
+  color: crimson;
+  background-color: cyan;
+}
 
+#slides {
+  margin-left: 200px;
+  margin-bottom: 20px;
+  width: 1080px
+}
