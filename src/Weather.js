@@ -15,7 +15,19 @@ class Weather extends React.Component {
   render() {
 
     return (
-      <WeatherDay />
+      <>
+        {this.props.showWeather.map((city, idx) =>  
+        
+          <Card key={idx} className="mb-2">
+            <Card.Body>
+              <Card.Text>
+               {city.forecast}
+              </Card.Text>
+            </Card.Body>
+          </Card>
+          )
+        }
+      </>
     )
   }
 }

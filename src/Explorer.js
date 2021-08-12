@@ -74,11 +74,13 @@ class Explorer extends React.Component {
   getWeatherResults = async (e) => {
     try {
       let weatherResults = await axios.get(`${process.env.REACT_APP_BACKEND_URL}/weather?city=${this.state.city}&lat=${this.state.lat}&lon=${this.state.lon}`);
+    
       this.setState({
         weatherData: weatherResults.data,
         displayWeather: true,
         displayWeatherError: false,
       })
+      console.log(weatherResults.data)
 
     } catch (error) {
         this.setState({

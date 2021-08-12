@@ -19,9 +19,6 @@ class Movies extends React.Component {
       <>
        <Carousel id='slides' >
         {this.props.showMovies.map((movie, idx) =>
-
-
-         
             <Carousel.Item key={idx}>
               <img
                 className="d-block w-100"
@@ -29,9 +26,8 @@ class Movies extends React.Component {
                       `https://image.tmdb.org/t/p/w500${movie.image_url}`
                       : 'https://via.placeholder.com/150' }
                 alt='Movie Poster'
-                
               />
-              <Carousel.Caption>
+              <Carousel.Caption id="movieInfo">
               Title: {movie.title}<br></br>
               Overview: {movie.overview}<br></br>
               Average Votes: {movie.average_votes}<br></br>

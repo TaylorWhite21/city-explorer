@@ -10,6 +10,7 @@ body {
   background-repeat: no-repeat;
   background-size: 1920px 2000px;
   z-index: -1;
+  color: crimson;
 }
 
 code {
